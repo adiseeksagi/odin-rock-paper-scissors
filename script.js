@@ -9,8 +9,7 @@ function getComputerchoice() {
 }
 
 function getHumanchoice() {
-   let b= prompt("Enter your choice")
-   return b
+    return prompt("Enter your choice")
 }
 
 
