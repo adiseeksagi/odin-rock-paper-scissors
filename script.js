@@ -76,3 +76,4 @@ if (startGame==="enter") {
 } else {
     console.log("fix typo")
 }
+// end
