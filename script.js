@@ -20,6 +20,9 @@ let computerScore=document.querySelector("#computerScore")
 let uScore=0
 let userScore=document.querySelector("#userScore")
 
+// Add a flag to track if the game is over
+let gameOver = false;
+
 //getting User's Choice
 function getUserchoice() {
     //variable assign
@@ -49,28 +52,56 @@ function getUserchoice() {
     scissor.addEventListener("click", ()=> handleUserClick("scissor"));
 }
 
+// Helper to enable/disable RPS buttons
+function setRPSButtonsDisabled(disabled) {
+    document.getElementById('rock').disabled = disabled;
+    document.getElementById('paper').disabled = disabled;
+    document.getElementById('scissor').disabled = disabled;
+}
+
+// Update playRound to handle best of 5
 function playRound(arr) {
+    if (gameOver) return; // Prevent play if game is over
+
     console.log("Computer choice:", arr[0]);
     console.log("User choice:", arr[1]);
     
-    // Add your game logic here
     if (arr[0] === arr[1]) {
-        document.querySelector("#winComment").textContent="Draw !!!"
+        document.querySelector("#winComment").textContent="Round Draw!"
     } else if (
         (arr[0] === "rock" && arr[1] === "paper") ||
         (arr[0] === "paper" && arr[1] === "scissor") ||
         (arr[0] === "scissor" && arr[1] === "rock")
     ) {
-        document.querySelector("#winComment").textContent="You Win !!!";
+        document.querySelector("#winComment").textContent="You won this round!";
         uScore=uScore+1;
         userScore.textContent=String(uScore)
     } else {
-        document.querySelector("#winComment").textContent="I Win !!!";
+        document.querySelector("#winComment").textContent="I won this round!";
         cScore=cScore+1;
         computerScore.textContent=String(cScore)
-
     }
-    
+
+    // Check for best of 5
+    if (uScore === 5 || cScore === 5) {
+        gameOver = true;
+        const winComment = document.querySelector("#winComment");
+        if (uScore === 5) {
+            winComment.textContent = "You won the game!";
+        } else {
+            winComment.textContent = "I won the game!";
+        }
+        // Blink animation
+        winComment.classList.add('blink');
+        setTimeout(() => winComment.classList.remove('blink'), 900);
+        // Disable RPS buttons
+        setRPSButtonsDisabled(true);
+        // Change reset/start button to AGAIN
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) resetBtn.textContent = "AGAIN";
+        return;
+    }
+
     // Reset for next round
     gameState.isWaitingForInput = true;
 }
@@ -88,6 +119,7 @@ function showStartGameMessage() {
     if (resetBtn) {
         resetBtn.textContent = 'Start';
     }
+    setRPSButtonsDisabled(false);
 }
 
 // On initial load, show Start Game if both scores are zero
@@ -114,29 +146,33 @@ playRound = function(arr) {
 const resetBtn = document.getElementById('resetBtn');
 if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-        if (resetBtn.textContent === 'Start') {
-            // Start the game: show choices, set button to Reset
+        if (resetBtn.textContent === 'Start' || resetBtn.textContent === 'AGAIN') {
+            // Start or play again: show choices, set button to Reset, enable RPS
             updateGameboxChoices();
             resetBtn.textContent = 'Reset';
-            // Reset win comment and state
             document.querySelector('#winComment').textContent = '';
             gameState.userChoice = null;
             gameState.computerChoice = null;
             gameState.isWaitingForInput = true;
+            uScore = 0;
+            cScore = 0;
+            userScore.textContent = '0';
+            computerScore.textContent = '0';
+            gameOver = false;
+            setRPSButtonsDisabled(false);
         } else {
             // Reset scores
             uScore = 0;
             cScore = 0;
             userScore.textContent = '0';
             computerScore.textContent = '0';
-            // Show Start Game message and set button to Start
             showStartGameMessage();
-            // Reset win comment
             document.querySelector('#winComment').textContent = '';
-            // Reset game state
             gameState.userChoice = null;
             gameState.computerChoice = null;
             gameState.isWaitingForInput = true;
+            gameOver = false;
+            setRPSButtonsDisabled(false);
         }
     });
 }
