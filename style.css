@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Press Start 2P', monospace;
+    background: #f3f4f8;
+    color: #6d6d6d;
+}
+
+#gameWindow {
+    background: #fff;
+    padding: 32px 24px 24px 24px;
+    border: 4px solid #e0e0e0;
+    border-radius: 24px;
+    box-shadow: 0 6px 24px 0 rgba(180,180,200,0.12), 0 1.5px 0 #e0e0e0;
+    text-align: center;
+    min-width: 340px;
+    max-width: 400px;
+}
+
+#gameTitle {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
+    color: #b48ad6;
+    margin-bottom: 24px;
+    margin-top: 0;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 0 #fff0f3;
+}
+
+#scorebox {
+    margin-bottom: 24px;
+    background: #f7f8fa;
+    border: 2.5px solid #e0e0e0;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px 0 rgba(200,200,220,0.08);
+    padding: 18px 0 10px 0;
+}
+
+.score-flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ececf3;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px 18px 8px 18px;
+    min-width: 90px;
+    box-shadow: 0 1.5px 0 #e0e0e0;
+}
+
+.score-label {
+    font-size: 11px;
+    color: #b48ad6;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+#userScore, #computerScore {
+    font-size: 20px;
+    color: #ffb6b9;
+    text-shadow: 1px 1px 0 #fff0f3;
+}
+
+.score-item.computer #computerScore {
+    color: #a0c4ff;
+}
+
+#gamebox {
+    margin: 24px 0;
+    padding: 16px 0 10px 0;
+    background: #f7f8fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 14px;
+    box-shadow: 0 1.5px 0 #e0e0e0;
+}
+
+#gamebox div {
+    margin: 10px 0;
+    font-size: 13px;
+    color: #b48ad6;
+    text-shadow: 1px 1px 0 #fff0f3;
+}
+
+#winComment {
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 48px;
+    min-height: 48px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffb6b9;
+    background: #f7f8fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px 0;
+    box-shadow: 0 1.5px 0 #e0e0e0;
+    letter-spacing: 1px;
+}
+
+#button {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#button button {
+    min-width: 110px;
+    margin: 0;
+    padding: 16px 0;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    border: 3px solid #e0e0e0;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #fff0f3 60%, #f7f8fa 100%);
+    color: #b48ad6;
+    box-shadow: 0 2.5px 0 #e0e0e0;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #fff0f3;
+    transition: all 0.12s cubic-bezier(.4,2,.6,1);
+    outline: none;
+    display: inline-block;
+}
+
+#button button:hover {
+    background: linear-gradient(180deg, #ffe5ec 60%, #f7f8fa 100%);
+    color: #ffb6b9;
+    box-shadow: 0 4px 0 #e0e0e0;
+    transform: translateY(-2px) scale(1.04);
+}
+
+#button button:active {
+    background: linear-gradient(180deg, #f7f8fa 60%, #fff0f3 100%);
+    color: #b48ad6;
+    box-shadow: 0 1.5px 0 #e0e0e0;
+    transform: translateY(0) scale(0.98);
+}
+
+#button button:focus {
+    outline: 2px solid #b48ad6;
+    outline-offset: 2px;
+}
+
+#reset-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+}
+
+#resetBtn {
+    min-width: 70px;
+    padding: 7px 0;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    border: 2px solid #b48ad6;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #fff0f3 60%, #f7f8fa 100%);
+    color: #b48ad6;
+    box-shadow: 0 1.5px 0 #e0e0e0;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 #fff0f3;
+    transition: all 0.12s cubic-bezier(.4,2,.6,1);
+    outline: none;
+    margin: 0 auto;
+}
+
+#resetBtn:hover {
+    background: linear-gradient(180deg, #ffe5ec 60%, #f7f8fa 100%);
+    color: #ffb6b9;
+    border-color: #ffb6b9;
+    box-shadow: 0 3px 0 #e0e0e0;
+}
+
+#resetBtn:active {
+    background: linear-gradient(180deg, #f7f8fa 60%, #fff0f3 100%);
+    color: #b48ad6;
+    box-shadow: 0 1px 0 #e0e0e0;
+}
+
+#resetBtn:focus {
+    outline: 2px solid #b48ad6;
+    outline-offset: 2px;
+}

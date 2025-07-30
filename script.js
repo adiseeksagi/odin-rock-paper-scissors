@@ -1,79 +1,124 @@
+
+//getting Computer's choice
 function getComputerchoice() {
-    let a= Math.floor(Math.random()*3);
-    if (a==0)
-        return "rock"
-    if (a==1)
-        return "paper"
-    if (a==2)
-        return "scissor"
+    let choices=["rock","paper","scissor"];
+    const choice= choices[Math.floor(Math.random()*3)];
+    document.querySelector("#computerChoice").textContent=choice;
+    return choice;
 }
 
-function getHumanchoice() {
-    return prompt("Enter your choice (or type 'quit' to end):");
-}
+// Global variable to store the game state
+let gameState = {
+    userChoice: null,
+    computerChoice: null,
+    isWaitingForInput: true
+};
 
-function playRound(Computerchoice, Humanchoice) {
-    //draws//
-    if (Computerchoice=== Humanchoice) {
-        console.log("round DRAW!!!")
-    }
-    // human wins//
-    if (
-        (Computerchoice==="rock" && Humanchoice==="paper") || 
-        (Computerchoice==="paper" && Humanchoice==="scissor") ||
-        (Computerchoice==="scissor" && Humanchoice==="rock") ) {
-         humanScore= humanScore+1
-         console.log("you win this round!!!")
-         return
-    }
-    //computer wins//
-    if ( (Computerchoice==="rock" && Humanchoice==="scissor") ||
-        (Computerchoice==="paper" && Humanchoice==="rock") ||
-        (Computerchoice==="scissor" && Humanchoice==="paper") ) {
-        computerScore= computerScore+1
-        console.log("computer wins this round!!!")
-        return
-    }
-}
+//Global variables for score
+let cScore=0
+let computerScore=document.querySelector("#computerScore")
+let uScore=0
+let userScore=document.querySelector("#userScore")
 
-function playGame() {
-    while (computerScore < 5 && humanScore < 5) {
-        console.log("Round", i);
-        let computerSelection = getComputerchoice();
-        let humanSelection = getHumanchoice();
-        if (humanSelection === "quit") {
-            console.log("Game ended by user.");
-            break;
+//getting User's Choice
+function getUserchoice() {
+    //variable assign
+    var rock=document.querySelector('#rock');
+    var paper=document.querySelector('#paper');
+    var scissor=document.querySelector('#scissor');
+
+    //returning User's choice
+    rock.addEventListener("click", ()=> {
+        if (gameState.isWaitingForInput) {
+            const userInput="rock";
+            document.querySelector("#userChoice").textContent=userInput;
+            const computeInput=getComputerchoice();
+            
+            gameState.userChoice = userInput;
+            gameState.computerChoice = computeInput;
+            gameState.isWaitingForInput = false;
+            
+            // Now play the round
+            playRound([computeInput, userInput]);
         }
-        playRound(computerSelection, humanSelection);
-        console.log("Computer score=", computerScore, "& Human score=", humanScore);
-        i = i + 1;
-    }
-    return;
+    })
+    paper.addEventListener("click", ()=> {
+        if (gameState.isWaitingForInput) {
+            const userInput="paper";
+            document.querySelector("#userChoice").textContent=userInput;
+            const computeInput=getComputerchoice();
+            
+            gameState.userChoice = userInput;
+            gameState.computerChoice = computeInput;
+            gameState.isWaitingForInput = false;
+            
+            // Now play the round
+            playRound([computeInput, userInput]);
+        }
+    })
+    scissor.addEventListener("click", ()=> {
+        if (gameState.isWaitingForInput) {
+            const userInput="scissor";
+            document.querySelector("#userChoice").textContent=userInput;
+            const computeInput=getComputerchoice();
+            
+            gameState.userChoice = userInput;
+            gameState.computerChoice = computeInput;
+            gameState.isWaitingForInput = false;
+            
+            // Now play the round
+            playRound([computeInput, userInput]);
+        }
+    })
 }
 
-function gameWinner() {
-    if (humanScore===5) {
-        return console.log("You WON")
+function playRound(arr) {
+    console.log("Computer choice:", arr[0]);
+    console.log("User choice:", arr[1]);
+    
+    // Add your game logic here
+    if (arr[0] === arr[1]) {
+        document.querySelector("#winComment").textContent="Draw !!!"
+    } else if (
+        (arr[0] === "rock" && arr[1] === "paper") ||
+        (arr[0] === "paper" && arr[1] === "scissor") ||
+        (arr[0] === "scissor" && arr[1] === "rock")
+    ) {
+        document.querySelector("#winComment").textContent="You Win !!!";
+        uScore=uScore+1;
+        userScore.textContent=String(uScore)
+    } else {
+        document.querySelector("#winComment").textContent="Computer Wins !!!";
+        cScore=cScore+1;
+        computerScore.textContent=String(cScore)
+
     }
-    if (computerScore===5) {
-        return console.log("Computer WON")
-    }
+    
+    // Reset for next round
+    gameState.isWaitingForInput = true;
 }
 
+// Initialize the game
+getUserchoice();
 
-let humanScore=0
-let computerScore=0
-let i=1
-
-let startGame=prompt("type 'enter' to start the game")
-if (startGame==="enter") {
-    console.log("GAME BEGINS")
-    playGame()
-    gameWinner()
-    console.log("Final Computer score= ", computerScore, "& Human score= ",humanScore)
-    console.log("GAME ENDS")
-} else {
-    console.log("fix typo")
+// Reset feature
+const resetBtn = document.getElementById('resetBtn');
+if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+        // Reset scores
+        uScore = 0;
+        cScore = 0;
+        userScore.textContent = '0';
+        computerScore.textContent = '0';
+        // Reset choices
+        document.querySelector('#userChoice').textContent = '';
+        document.querySelector('#computerChoice').textContent = '';
+        // Reset win comment
+        document.querySelector('#winComment').textContent = '';
+        // Reset game state
+        gameState.userChoice = null;
+        gameState.computerChoice = null;
+        gameState.isWaitingForInput = true;
+    });
 }
-// end
+
