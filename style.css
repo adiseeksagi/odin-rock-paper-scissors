@@ -229,6 +229,17 @@ body {
     text-align: center;
     margin-top: 18px;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+#footerSoundIcon {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    opacity: 0.5;
+    /* Remove inline vertical-align and margin-left */
 }
 
 .sakura-petal {
@@ -277,4 +288,29 @@ body {
 
 .blink {
     animation: blinkWin 0.3s linear 3;
+}
+
+#soundToggleBtn {
+    font-size: 9px;
+    font-family: 'Press Start 2P', monospace;
+    color: #b48ad6;
+    background: transparent;
+    border: 1px solid #b48ad6;
+    border-radius: 5px;
+    opacity: 0.35;
+    padding: 2px 6px;
+    min-width: unset;
+    cursor: pointer;
+    transition: opacity 0.15s, background 0.15s, color 0.15s;
+    outline: none;
+}
+#soundToggleBtn:hover, #soundToggleBtn:focus {
+    opacity: 0.7;
+    background: #ffe5ec;
+    color: #ffb6b9;
+}
+#soundToggleBtn:active {
+    opacity: 1;
+    background: #f7f8fa;
+    color: #b48ad6;
 }

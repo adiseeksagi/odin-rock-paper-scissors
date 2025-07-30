@@ -23,6 +23,18 @@ let userScore=document.querySelector("#userScore")
 // Add a flag to track if the game is over
 let gameOver = false;
 
+function playClickSound() {
+    const clickAudio = document.getElementById('clickSound');
+    if (clickAudio) {
+        clickAudio.currentTime = 0;
+        clickAudio.play();
+    }
+    // Vibration effect (if supported)
+    if (navigator.vibrate) {
+        navigator.vibrate(30);
+    }
+}
+
 //getting User's Choice
 function getUserchoice() {
     //variable assign
@@ -31,6 +43,7 @@ function getUserchoice() {
     var scissor=document.querySelector('#scissor');
 
     function handleUserClick(userInput) {
+        playClickSound();
         // Only allow play if the reset button is not showing 'Start'
         const resetBtn = document.getElementById('resetBtn');
         if (resetBtn && resetBtn.textContent === 'Start') {
@@ -146,6 +159,7 @@ playRound = function(arr) {
 const resetBtn = document.getElementById('resetBtn');
 if (resetBtn) {
     resetBtn.addEventListener('click', () => {
+        playClickSound();
         if (resetBtn.textContent === 'Start' || resetBtn.textContent === 'AGAIN') {
             // Start or play again: show choices, set button to Reset, enable RPS
             updateGameboxChoices();
@@ -176,6 +190,37 @@ if (resetBtn) {
         }
     });
 }
+
+// Background music toggle logic
+window.addEventListener('DOMContentLoaded', () => {
+    const bgMusic = document.getElementById('bgMusic');
+    const footerSoundIcon = document.getElementById('footerSoundIcon');
+    if (bgMusic && footerSoundIcon) {
+        let musicOn = true;
+        footerSoundIcon.addEventListener('click', () => {
+            playClickSound();
+            musicOn = !musicOn;
+            if (musicOn) {
+                bgMusic.play();
+                footerSoundIcon.src = 'music effects/sound-on.png';
+                footerSoundIcon.style.opacity = '0.5';
+            } else {
+                bgMusic.pause();
+                footerSoundIcon.src = 'music effects/no-sound.png';
+                footerSoundIcon.style.opacity = '0.25';
+            }
+        });
+        // If music is paused by user, update icon
+        bgMusic.addEventListener('pause', () => {
+            footerSoundIcon.src = 'music effects/no-sound.png';
+            footerSoundIcon.style.opacity = '0.25';
+        });
+        bgMusic.addEventListener('play', () => {
+            footerSoundIcon.src = 'music effects/sound-on.png';
+            footerSoundIcon.style.opacity = '0.5';
+        });
+    }
+});
 
 // Sakura (cherry blossom) petal animation
 (function sakuraBlossom() {
