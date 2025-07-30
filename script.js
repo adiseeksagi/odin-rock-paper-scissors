@@ -65,7 +65,7 @@ function playRound(arr) {
         uScore=uScore+1;
         userScore.textContent=String(uScore)
     } else {
-        document.querySelector("#winComment").textContent="Computer Wins !!!";
+        document.querySelector("#winComment").textContent="I Win !!!";
         cScore=cScore+1;
         computerScore.textContent=String(cScore)
 
@@ -99,7 +99,7 @@ if (uScore === 0 && cScore === 0) {
 function updateGameboxChoices() {
     const gamebox = document.getElementById('gamebox');
     if (gamebox) {
-        gamebox.innerHTML = `<div>Computer Choice: <span id="computerChoice">${gameState.computerChoice ? gameState.computerChoice : ''}</span></div><div>Your Choice: <span id="userChoice">${gameState.userChoice ? gameState.userChoice : ''}</span></div>`;
+        gamebox.innerHTML = `<div>My Choice: <span id="computerChoice">${gameState.computerChoice ? gameState.computerChoice : ''}</span></div><div>Your Choice: <span id="userChoice">${gameState.userChoice ? gameState.userChoice : ''}</span></div>`;
     }
 }
 
